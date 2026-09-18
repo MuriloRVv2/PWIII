@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${livro.id == null ? 'Novo livro' : 'Editar livro'}"></title>
+    <link rel="stylesheet" th:href="@{/css/estilo.css}">
+</head>
+<body>
+    <div class="container">
+        <h1 th:text="${livro.id == null ? 'Novo livro' : 'Editar livro'}"></h1>
+
+        <form th:action="@{/painel/salvar}" th:object="${livro}" method="post" class="formulario">
+            <input type="hidden" th:field="*{id}">
+
+            <label>Título</label>
+            <input type="text" th:field="*{titulo}" required>
+
+            <label>Autor</label>
+            <input type="text" th:field="*{autor}" required>
+
+            <label>Gênero</label>
+            <input type="text" th:field="*{genero}">
+
+            <label>Ano de publicação</label>
+            <input type="number" th:field="*{anoPublicacao}">
+
+            <label>Status</label>
+            <select th:field="*{status}">
+                <option th:each="s : ${statusList}" th:value="${s}" th:text="${s}"></option>
+            </select>
+
+            <label>Avaliação (0 a 5)</label>
+            <input type="number" min="0" max="5" th:field="*{avaliacao}">
+
+            <div class="acoes-form">
+                <a th:href="@{/painel}" class="botao secundario">Cancelar</a>
+                <button type="submit" class="botao">Salvar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
